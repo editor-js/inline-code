@@ -29,13 +29,11 @@ const InlineCode = require('codex.editor.inline-code');
 
 ### Load from CDN
 
-Get newest bundle path from [RawGit](https://rawgit.com) — open site and paste link to JS bundle in repository.
+You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/codex.editor.inline-code).
 
-`https://github.com/codex-editor/inline-code/blob/master/dist/bundle.js`
+`https://cdn.jsdelivr.net/npm/codex.editor.inline-code@1.0.1`
 
-> Note: use `production` link with commit hash to avoid issues with caching.
-
-Then require this script on page with CodeX Editor.
+Require this script on a page with CodeX Editor.
 
 ```html
 <script src="..."></script>
