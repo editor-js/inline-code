@@ -10,9 +10,9 @@ require('./index.css').toString();
  */
 class InlineCode {
   /**
-   * @param {object} api - CodeX Editor API
+   * @param {{api: object}}  - CodeX Editor API
    */
-  constructor(api) {
+  constructor({api}) {
     this.api = api;
 
     /**
