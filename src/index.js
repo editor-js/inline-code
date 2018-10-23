@@ -10,6 +10,15 @@ require('./index.css').toString();
  */
 class InlineCode {
   /**
+   * Class name for term-tag
+   *
+   * @type {string}
+   */
+  static get CSS() {
+    return 'inline-code';
+  };
+
+  /**
    * @param {{api: object}}  - CodeX Editor API
    */
   constructor({api}) {
@@ -28,13 +37,6 @@ class InlineCode {
      * @type {string}
      */
     this.tag = 'SPAN';
-
-    /**
-     * Class name for term-tag
-     *
-     * @type {string}
-     */
-    this.CSS = 'inline-code';
 
     /**
      * CSS classes
@@ -77,7 +79,7 @@ class InlineCode {
       return;
     }
 
-    let termWrapper = this.api.selection.findParentTag(this.tag, this.CSS);
+    let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS);
 
     /**
      * If start or end of selection is in the highlighted block
@@ -100,7 +102,7 @@ class InlineCode {
      */
     let span = document.createElement(this.tag);
 
-    span.classList.add(this.CSS);
+    span.classList.add(InlineCode.CSS);
 
     /**
      * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
@@ -154,7 +156,7 @@ class InlineCode {
    * Check and change Term's state for current selection
    */
   checkState() {
-    const termTag = this.api.selection.findParentTag(this.tag, this.CSS);
+    const termTag = this.api.selection.findParentTag(this.tag, InlineCode.CSS);
 
     this.button.classList.toggle(this.iconClasses.active, !!termTag);
   }
@@ -171,10 +173,10 @@ class InlineCode {
    * Sanitizer rule
    * @return {{span: {class: string}}}
    */
-  get sanitize() {
+  static get sanitize() {
     return {
       span: {
-        class: 'inline-code'
+        class: InlineCode.CSS
       }
     };
   }
