@@ -36,7 +36,7 @@ class InlineCode {
      *
      * @type {string}
      */
-    this.tag = 'SPAN';
+    this.tag = 'CODE';
 
     /**
      * CSS classes
@@ -176,12 +176,8 @@ class InlineCode {
    */
   static get sanitize() {
     return {
-      span: (el) => {
-        if (el.classList.contains(InlineCode.CSS)) {
-          return {class: InlineCode.CSS}
-        } else {
-          return false;
-        }
+      code: {
+        class: InlineCode.CSS
       }
     };
   }
