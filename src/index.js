@@ -67,7 +67,6 @@ class InlineCode {
     this.button.classList.add(this.iconClasses.base);
     this.button.innerHTML = this.toolboxIcon;
 
-    console.log('this tag', this.tag);
     return this.button;
   }
 
@@ -82,7 +81,6 @@ class InlineCode {
     }
 
     let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS);
-    console.log(termWrapper);
 
     /**
      * If start or end of selection is in the highlighted block
