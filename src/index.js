@@ -176,8 +176,12 @@ class InlineCode {
    */
   static get sanitize() {
     return {
-      span: {
-        class: InlineCode.CSS
+      span: (el) => {
+        if (el.classList.contains(InlineCode.CSS)) {
+          return {class: InlineCode.CSS}
+        } else {
+          return false;
+        }
       }
     };
   }
