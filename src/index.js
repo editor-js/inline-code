@@ -178,7 +178,7 @@ class InlineCode {
     return {
       span: (el) => {
         if (el.classList.contains(InlineCode.CSS)) {
-          return {class: true}
+          return {class: InlineCode.CSS}
         } else {
           return false;
         }
