@@ -1,15 +1,17 @@
 {
-  "name": "codex.editor.inline-code",
+  "name": "@editorjs/inline-code",
   "version": "1.2.0",
   "keywords": [
     "codex editor",
     "inline",
     "code",
-    "tool"
+    "tool",
+    "editor.js",
+    "editorjs"
   ],
-  "description": "InlineCode Tool for CodeX.Editor",
+  "description": "InlineCode Tool for Editor.js",
   "license": "MIT",
-  "repository": "https://github.com/codex-editor/inline-code",
+  "repository": "https://github.com/editorjs/inline-code",
   "main": "./dist/bundle.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode production --watch"
