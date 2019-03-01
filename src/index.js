@@ -4,7 +4,7 @@
 require('./index.css').toString();
 
 /**
- * Inline Code Tool for the CodeX Editor
+ * Inline Code Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
@@ -19,7 +19,6 @@ class InlineCode {
   };
 
   /**
-   * @param {{api: object}}  - CodeX Editor API
    */
   constructor({api}) {
     this.api = api;
