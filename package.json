@@ -11,7 +11,7 @@
   ],
   "description": "InlineCode Tool for Editor.js",
   "license": "MIT",
-  "repository": "https://github.com/editorjs/inline-code",
+  "repository": "https://github.com/editor-js/inline-code",
   "main": "./dist/bundle.js",
   "scripts": {
     "build": "webpack --mode production",
