@@ -20,7 +20,7 @@ class InlineCode {
 
   /**
    */
-  constructor({api}) {
+  constructor({api, config}) {
     this.api = api;
 
     /**
@@ -44,6 +44,9 @@ class InlineCode {
       base: this.api.styles.inlineToolButton,
       active: this.api.styles.inlineToolButtonActive
     };
+
+    this._foregroundColor = config.foregroundColor || "#b44437";
+    this._backgroundColor = config.backgroundColor || "rgba(250, 239, 240, 0.78)";
   }
 
   /**
@@ -103,6 +106,8 @@ class InlineCode {
     let span = document.createElement(this.tag);
 
     span.classList.add(InlineCode.CSS);
+    span.style.color = this._foregroundColor;
+    span.style.backgroundColor = this._backgroundColor;
 
     /**
      * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
