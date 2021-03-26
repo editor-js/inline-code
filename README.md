@@ -52,6 +52,10 @@ var editor = EditorJS({
     inlineCode: {
       class: InlineCode,
       shortcut: 'CMD+SHIFT+M',
+      config: {
+        foregroundColor: 'blue',
+        backgroundColor: 'yellow',
+      },
     },
   },
   
@@ -61,17 +65,22 @@ var editor = EditorJS({
 
 ## Config Params
 
-This Tool has no config params
+All properties are optional.
+
+| Field             | Type       | Description                              |
+| ----------------- | ---------- | ---------------------------------------- |
+| foregroundColor   | `string`   | the highlighted segment's text color     |
+| backgroundColor   | `string`   | background color of the highlighted text |
 
 ## Output data
 
-Marked text will be wrapped with a `span` tag with an `inline-code` class.
+Marked text will be wrapped with a `code` tag with an `inline-code` class.
 
 ```json
 {
     "type" : "text",
     "data" : {
-        "text" : "Create a directory for your module, enter it and run <span class=\"inline-code\">npm init</span> command."
+        "text" : "Create a directory for your module, enter it and run <code class=\"inline-code\">npm init</code> command."
     }
 }
 ```
