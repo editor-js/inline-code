@@ -1,7 +1,8 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+ import './index.css';
+ import { IconInlineCode } from '@codexteam/icons'
 
 /**
  * Inline Code Tool for the Editor.js
@@ -166,7 +167,7 @@ class InlineCode {
    * @return {string}
    */
   get toolboxIcon() {
-    return require('@codexteam/icons').IconInlineCode;
+    return IconInlineCode;
   }
 
   /**

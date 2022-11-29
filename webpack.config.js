@@ -36,6 +36,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
     library: 'InlineCode',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    libraryExport: 'default'
   }
 };
