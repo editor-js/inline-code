@@ -9,7 +9,7 @@
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-class InlineCode {
+export default class InlineCode {
   /**
    * Class name for term-tag
    *
@@ -182,5 +182,3 @@ class InlineCode {
     };
   }
 }
-
-module.exports = InlineCode;
