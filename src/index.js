@@ -1,14 +1,15 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+ import './index.css';
+ import { IconInlineCode } from '@codexteam/icons'
 
 /**
  * Inline Code Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-class InlineCode {
+export default class InlineCode {
   /**
    * Class name for term-tag
    *
@@ -166,7 +167,7 @@ class InlineCode {
    * @return {string}
    */
   get toolboxIcon() {
-    return require('./../assets/icon.svg').default;
+    return IconInlineCode;
   }
 
   /**
@@ -181,5 +182,3 @@ class InlineCode {
     };
   }
 }
-
-module.exports = InlineCode;
