@@ -10,7 +10,7 @@ export default {
     copyPublicDir: false,
     lib: {
       entry: path.resolve(__dirname, "src", "index.js"),
-      name: "Inline-code",
+      name: "InlineCode",
       fileName: "inline-code",
     },
   },
