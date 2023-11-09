@@ -20,17 +20,7 @@ Include module at your application
 import InlineCode from '@editorjs/inline-code';
 ```
 
-### Load from CDN
-
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/inline-code).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest`
-
-Require this script on a page with Editor.js.
-
-```html
-<script src="..."></script>
-```
+Optionally, you can load this tool from CDN [JsDelivr CDN](https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest)
 
 ## Usage
 
