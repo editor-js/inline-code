@@ -8,8 +8,6 @@ Inline Tool for marking code-fragments for the [Editor.js](https://ifmo.su/edito
 
 ## Installation
 
-### Install via NPM
-
 Get the package
 
 ```shell
