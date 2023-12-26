@@ -1,8 +1,7 @@
 {
-  "name": "@editorjs/inline-code",
-  "version": "1.5.0",
+  "name": "@juratbek/editorjs-inline-code",
+  "version": "1.0.0",
   "keywords": [
-    "codex editor",
     "inline",
     "code",
     "editor.js",
@@ -10,7 +9,7 @@
   ],
   "description": "InlineCode Tool for Editor.js",
   "license": "MIT",
-  "repository": "https://github.com/editor-js/inline-code",
+  "repository": "https://github.com/Juratbek/editorjs-inline-code",
   "files": [
     "dist"
   ],
@@ -27,8 +26,7 @@
     "build": "vite build"
   },
   "author": {
-    "name": "CodeX Team",
-    "email": "team@ifmo.su"
+    "name": "Juratbek"
   },
   "devDependencies": {
     "vite": "^4.5.0",

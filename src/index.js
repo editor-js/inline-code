@@ -3,7 +3,7 @@
  */
  import './index.css';
  import { IconInlineCode } from '@codexteam/icons'
-
+ import { isTextEmpty, isCaretAtLastPosition, isTextNode, startsWithCharacters } from './utils'
 /**
  * Inline Code Tool for the Editor.js
  *
@@ -21,7 +21,7 @@ export default class InlineCode {
 
   /**
    */
-  constructor({api}) {
+  constructor({api, config}) {
     this.api = api;
 
     /**
@@ -41,12 +41,30 @@ export default class InlineCode {
     /**
      * CSS classes
      */
+    // TODO: Check if possible to control activeness automatically
     this.iconClasses = {
       base: this.api.styles.inlineToolButton,
       active: this.api.styles.inlineToolButtonActive
     };
+
+    document.querySelector(config.containerSelector)?.addEventListener("keydown", this.keyListener)
   }
 
+
+  keyListener = (e) => {
+    const codeWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS)
+    if (e.key !== "ArrowRight" || !codeWrapper) return
+    if (!isCaretAtLastPosition(codeWrapper)) return
+
+    codeWrapper.parentElement.normalize()
+    const nextSibling = codeWrapper.nextSibling
+
+    if (!isTextNode(nextSibling) || startsWithCharacters(nextSibling.data)) {
+      codeWrapper.insertAdjacentText("afterend", "\u00A0")
+    } else if (isTextEmpty(nextSibling.data)) {
+      nextSibling.replaceWith("\u00A0")
+    }
+  }
   /**
    * Specifies Tool as Inline Toolbar Tool
    *
@@ -101,9 +119,9 @@ export default class InlineCode {
     /**
      * Create a wrapper for highlighting
      */
-    let span = document.createElement(this.tag);
+    let codeElement = document.createElement(this.tag);
 
-    span.classList.add(InlineCode.CSS);
+    codeElement.classList.add(InlineCode.CSS);
 
     /**
      * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
@@ -111,13 +129,13 @@ export default class InlineCode {
      *
      * // range.surroundContents(span);
      */
-    span.appendChild(range.extractContents());
-    range.insertNode(span);
+    codeElement.appendChild(range.extractContents());
+    range.insertNode(codeElement);
 
     /**
      * Expand (add) selection to highlighted block
      */
-    this.api.selection.expandToTag(span);
+    this.api.selection.expandToTag(codeElement);
   }
 
   /**
