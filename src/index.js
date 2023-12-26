@@ -3,7 +3,7 @@
  */
  import './index.css';
  import { IconInlineCode } from '@codexteam/icons'
-
+ import { isTextEmpty, isCaretAtLastPosition, isTextNode, startsWithCharacters } from './utils'
 /**
  * Inline Code Tool for the Editor.js
  *
@@ -21,7 +21,7 @@ export default class InlineCode {
 
   /**
    */
-  constructor({api}) {
+  constructor({api, config}) {
     this.api = api;
 
     /**
@@ -47,44 +47,23 @@ export default class InlineCode {
       active: this.api.styles.inlineToolButtonActive
     };
 
-    window.addEventListener("keydown", this.keyListener)
+    document.querySelector(config.containerSelector)?.addEventListener("keydown", this.keyListener)
   }
 
-
-  isTextEmpty = (textContent) => {
-    return /^\s*$/.test(textContent)
-  }
 
   keyListener = (e) => {
     const codeWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS)
-    if (e.key === "ArrowRight" && codeWrapper) {
-      if (!this.isCaretAtLastPosition(codeWrapper)) return
+    if (e.key !== "ArrowRight" || !codeWrapper) return
+    if (!isCaretAtLastPosition(codeWrapper)) return
 
-      if (codeWrapper.nextElementSibling) return
+    codeWrapper.parentElement.normalize()
+    const nextSibling = codeWrapper.nextSibling
 
-      if (!codeWrapper.nextSibling) {
-        const emptyChar = document.createTextNode("\u00A0")
-        codeWrapper.parentElement.appendChild(emptyChar)
-
-      } else {
-        if (this.isTextEmpty(codeWrapper.nextSibling.data)) {
-          codeWrapper.nextSibling.insertData(0, "\u00A0")
-        }
-      }
+    if (!isTextNode(nextSibling) || startsWithCharacters(nextSibling.data)) {
+      codeWrapper.insertAdjacentText("afterend", "\u00A0")
+    } else if (isTextEmpty(nextSibling.data)) {
+      nextSibling.replaceWith("\u00A0")
     }
-  }
-
-  isCaretAtLastPosition(element) {
-    // Get the selection object
-    const selection = window.getSelection();
-
-    if (selection.rangeCount === 0) return false;
-
-    // Get the range object
-    const range = selection.getRangeAt(0);
-
-    // Check if the end offset of the range is equal to the length of the text content
-    return range.endOffset === element.textContent.length;
   }
   /**
    * Specifies Tool as Inline Toolbar Tool
