@@ -27,7 +27,7 @@ export default class InlineCode implements InlineTool {
   /**
    * Tag representing the term
    */
-  private tag: string;
+  private tag: string = 'CODE';
   /**
    * CSS classes for the icon
    */
@@ -46,8 +46,6 @@ export default class InlineCode implements InlineTool {
     this.api = api;
 
     this.button = null;
-
-    this.tag = 'CODE';
 
     this.iconClasses = {
       base: this.api.styles.inlineToolButton,
