@@ -1,49 +1,55 @@
 /**
  * Build styles
  */
- import './index.css';
- import { IconInlineCode } from '@codexteam/icons'
+import './index.css';
+import { IconBrackets } from '@codexteam/icons';
+import { API, InlineTool, InlineToolConstructorOptions, SanitizerConfig } from "@editorjs/editorjs";
+
+interface IconClasses {
+  base: string;
+  active: string;
+}
 
 /**
  * Inline Code Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-export default class InlineCode {
+export default class InlineCode implements InlineTool {
+  /**
+   * Editor.js API
+   */
+  private api: API;
+  /**
+   * Button element for the toolbar
+   */
+  private button: HTMLButtonElement | null;
+  /**
+   * Tag representing the term
+   */
+  private tag: string = 'CODE';
+  /**
+   * CSS classes for the icon
+   */
+  private iconClasses: IconClasses;
+
   /**
    * Class name for term-tag
    *
    * @type {string}
    */
-  static get CSS() {
+  static get CSS(): string {
     return 'inline-code';
-  };
+  }
 
-  /**
-   */
-  constructor({api}) {
+  constructor({ api }: InlineToolConstructorOptions) {
     this.api = api;
 
-    /**
-     * Toolbar Button
-     *
-     * @type {HTMLElement|null}
-     */
     this.button = null;
 
-    /**
-     * Tag represented the term
-     *
-     * @type {string}
-     */
-    this.tag = 'CODE';
-
-    /**
-     * CSS classes
-     */
     this.iconClasses = {
       base: this.api.styles.inlineToolButton,
-      active: this.api.styles.inlineToolButtonActive
+      active: this.api.styles.inlineToolButtonActive,
     };
   }
 
@@ -52,7 +58,7 @@ export default class InlineCode {
    *
    * @return {boolean}
    */
-  static get isInline() {
+  static get isInline(): boolean {
     return true;
   }
 
@@ -61,7 +67,7 @@ export default class InlineCode {
    *
    * @return {HTMLElement}
    */
-  render() {
+  render(): HTMLElement {
     this.button = document.createElement('button');
     this.button.type = 'button';
     this.button.classList.add(this.iconClasses.base);
@@ -75,12 +81,12 @@ export default class InlineCode {
    *
    * @param {Range} range - selected fragment
    */
-  surround(range) {
+  surround(range: Range): void {
     if (!range) {
       return;
     }
 
-    let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS);
+    let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS) as HTMLElement;
 
     /**
      * If start or end of selection is in the highlighted block
@@ -97,7 +103,7 @@ export default class InlineCode {
    *
    * @param {Range} range - selected fragment
    */
-  wrap(range) {
+  wrap(range: Range): void {
     /**
      * Create a wrapper for highlighting
      */
@@ -125,21 +131,22 @@ export default class InlineCode {
    *
    * @param {HTMLElement} termWrapper - term wrapper tag
    */
-  unwrap(termWrapper) {
+  unwrap(termWrapper: HTMLElement): void {
     /**
      * Expand selection to all term-tag
      */
     this.api.selection.expandToTag(termWrapper);
 
-    let sel = window.getSelection();
-    let range = sel.getRangeAt(0);
+    const sel = window.getSelection();
+    if (!sel) return;
 
-    let unwrappedContent = range.extractContents();
+    const range = sel.getRangeAt(0);
+    const unwrappedContent = range.extractContents();
 
     /**
      * Remove empty term-tag
      */
-    termWrapper.parentNode.removeChild(termWrapper);
+    termWrapper.parentNode?.removeChild(termWrapper);
 
     /**
      * Insert extracted content
@@ -155,30 +162,37 @@ export default class InlineCode {
 
   /**
    * Check and change Term's state for current selection
+   * 
+   * @return {boolean}
    */
-  checkState() {
+  checkState(): boolean {
     const termTag = this.api.selection.findParentTag(this.tag, InlineCode.CSS);
 
-    this.button.classList.toggle(this.iconClasses.active, !!termTag);
+    if (this.button) {
+      this.button.classList.toggle(this.iconClasses.active, !!termTag);
+    }
+
+    return !!termTag;
   }
+
 
   /**
    * Get Tool icon's SVG
    * @return {string}
    */
-  get toolboxIcon() {
-    return IconInlineCode;
+  get toolboxIcon(): string {
+    return IconBrackets;
   }
 
   /**
    * Sanitizer rule
-   * @return {{span: {class: string}}}
+   * @return {SanitizerConfig}
    */
-  static get sanitize() {
+  static get sanitize(): SanitizerConfig {
     return {
       code: {
-        class: InlineCode.CSS
-      }
+        class: InlineCode.CSS,
+      },
     };
   }
 }

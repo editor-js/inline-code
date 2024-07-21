@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2020",
+    /* Modules */
+    "module": "CommonJS" /* Specify what module code is generated. */,
+    "typeRoots": [
+      "./node_modules/@types"
+    ] /* Specify multiple folders that act like './node_modules/@types'. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */
+  },
+  "include": ["src/*"]
+}
