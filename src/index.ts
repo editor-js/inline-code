@@ -89,16 +89,19 @@ export default class InlineCode implements InlineTool {
     let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS) as HTMLElement;
 
     /**
-     * If start or end of selection is in the highlighted block
+     * If the start or end of the selection range is within a highlighted block
      */
     if (termWrapper) {
       this.unwrap(termWrapper);
     } else {
-      this.wrap(range);
+      const existingCodeTag = range.commonAncestorContainer.parentElement?.querySelector(this.tag);
+      if (!existingCodeTag) {
+        this.wrap(range);
+      }
     }
   }
 
-  /**
+   /**
    * Wrap selection with term-tag
    *
    * @param {Range} range - selected fragment
