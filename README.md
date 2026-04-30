@@ -2,7 +2,7 @@
 
 # InlineCode Tool
 
-Inline Tool for marking code-fragments for the [Editor.js](https://ifmo.su/editor).
+Inline Tool for marking code-fragments for the [Editor.js](https://editorjs.io/).
 
 ![](assets/example.gif)
 
