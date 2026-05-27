@@ -88,14 +88,18 @@ export default class InlineCode implements InlineTool {
 
     let termWrapper = this.api.selection.findParentTag(this.tag, InlineCode.CSS) as HTMLElement;
 
-    /**
-     * If the start or end of the selection range is within a highlighted block
-     */
     if (termWrapper) {
       this.unwrap(termWrapper);
     } else {
-      const existingCodeTag = range.commonAncestorContainer.parentElement?.querySelector(this.tag);
-      if (!existingCodeTag) {
+      /**
+       * Only wrap if the selection itself does not already contain a <code> element.
+       * Using cloneContents() scopes the check to the actual selection, not the
+       * whole block — this prevents nested <code> tags (#44) while still allowing
+       * multiple non-contiguous code spans in the same block (#46).
+       */
+      const selectionContainsCode = range.cloneContents().querySelector(this.tag) !== null;
+
+      if (!selectionContainsCode) {
         this.wrap(range);
       }
     }
